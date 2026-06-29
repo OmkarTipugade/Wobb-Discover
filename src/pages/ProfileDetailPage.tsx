@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { VerifiedBadge } from "@/components/VerifiedBadge";
 import type { FullUserProfile, ProfileDetailResponse } from "@/types";
 import { loadProfileByUsername } from "@/utils/profileLoader";
+import { useCampaignStore } from "@/store/campaignStore";
 
 function formatFollowersDetail(count: number) {
   if (count >= 1000000) return (count / 1000000).toFixed(2) + "M";
@@ -19,6 +20,7 @@ export function ProfileDetailPage() {
     null
   );
   const [loaded, setLoaded] = useState(false);
+  const { addProfile, removeProfile, isProfileSelected } = useCampaignStore();
 
   useEffect(() => {
     if (!username) return;
@@ -149,14 +151,27 @@ export function ProfileDetailPage() {
             </a>
           )}
 
-          {/* TODO: candidates must implement Add to List feature */}
-          {/* TODO: candidates must implement Add to List feature */}
-          <button
-            disabled
-            className="block mt-4 px-4 py-2 bg-gray-300 text-gray-500 rounded cursor-not-allowed"
-          >
-            Add to List
-          </button>
+          {(() => {
+            const isSelected = isProfileSelected(user.user_id);
+            return (
+              <button
+                onClick={() => {
+                  if (isSelected) {
+                    removeProfile(user.user_id);
+                  } else {
+                    addProfile(user);
+                  }
+                }}
+                className={`block mt-4 px-4 py-2 rounded-lg font-medium transition-colors ${
+                  isSelected
+                    ? "bg-red-50 text-red-600 hover:bg-red-100 border border-red-200"
+                    : "bg-gray-800 text-white hover:bg-gray-700"
+                }`}
+              >
+                {isSelected ? "Remove from List" : "Add to List"}
+              </button>
+            );
+          })()}
         </div>
       </div>
     </Layout>
