@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { CampaignDrawer } from "./CampaignDrawer";
 import { useCampaignStore } from "@/store/campaignStore";
+import { FiList } from "react-icons/fi";
 
 interface LayoutProps {
   children: ReactNode;
@@ -30,7 +31,7 @@ export function Layout({ children, title }: LayoutProps) {
             onClick={toggleDrawer}
             className="group relative flex items-center gap-2 px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white text-xs sm:text-sm font-semibold rounded-xl cursor-pointer shadow-md shadow-violet-600/10 hover:shadow-lg hover:shadow-violet-600/20 active:scale-98 transition-all duration-200"
           >
-            <span>📋</span>
+            <FiList className="text-sm" />
             <span>Campaign List</span>
             {count > 0 && (
               <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-rose-500 text-[10px] font-bold text-white shadow-sm animate-pulse">

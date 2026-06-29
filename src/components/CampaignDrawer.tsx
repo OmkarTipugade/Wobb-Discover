@@ -1,5 +1,6 @@
 import { useCampaignStore } from "@/store/campaignStore";
 import { formatFollowers } from "@/utils/formatters";
+import { FiX, FiDownload, FiClipboard, FiTrash2 } from "react-icons/fi";
 
 export function CampaignDrawer() {
   const { selectedProfiles, isDrawerOpen, setDrawerOpen, removeProfile, clearList } =
@@ -48,17 +49,18 @@ export function CampaignDrawer() {
             {selectedProfiles.length > 0 && (
               <button
                 onClick={clearList}
-                className="text-xs text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 font-semibold px-2 py-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/20 cursor-pointer transition-colors"
+                className="text-xs text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 font-semibold px-2.5 py-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/20 cursor-pointer transition-colors flex items-center gap-1"
               >
-                Clear All
+                <FiTrash2 />
+                <span>Clear All</span>
               </button>
             )}
             <button
               onClick={() => setDrawerOpen(false)}
-              className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg cursor-pointer transition-colors"
+              className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg cursor-pointer transition-colors flex items-center justify-center"
               aria-label="Close drawer"
             >
-              ✕
+              <FiX className="text-base" />
             </button>
           </div>
         </div>
@@ -67,11 +69,11 @@ export function CampaignDrawer() {
         <div className="flex-1 overflow-y-auto p-5">
           {selectedProfiles.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center text-gray-400 dark:text-gray-500">
-              <div className="w-16 h-16 flex items-center justify-center bg-gray-50 dark:bg-zinc-900/50 rounded-full mb-4 text-2xl border border-gray-100 dark:border-zinc-800">
-                📋
+              <div className="w-16 h-16 flex items-center justify-center bg-gray-50 dark:bg-zinc-900/50 rounded-full mb-4 border border-gray-100 dark:border-zinc-800">
+                <FiClipboard className="text-2xl" />
               </div>
               <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">Your shortlist is empty</p>
-              <p className="text-xs mt-1 max-w-xs px-4">
+              <p className="text-xs mt-1 max-w-xs px-4 text-gray-400">
                 Click the "+" icon on creator profiles to build your outreach campaign.
               </p>
             </div>
@@ -97,10 +99,10 @@ export function CampaignDrawer() {
                   </div>
                   <button
                     onClick={() => removeProfile(profile.user_id)}
-                    className="p-1 text-gray-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg cursor-pointer transition-colors"
+                    className="p-1.5 text-gray-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg cursor-pointer transition-colors flex items-center justify-center"
                     aria-label={`Remove ${profile.fullname}`}
                   >
-                    ✕
+                    <FiX className="text-sm" />
                   </button>
                 </li>
               ))}
@@ -115,7 +117,7 @@ export function CampaignDrawer() {
               onClick={handleExport}
               className="w-full flex items-center justify-center gap-2 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl cursor-pointer shadow-md shadow-violet-600/10 hover:shadow-lg hover:shadow-violet-600/20 transition-all duration-200"
             >
-              <span>📥</span>
+              <FiDownload className="text-sm animate-bounce" />
               <span>Export Shortlist (CSV)</span>
             </button>
           </div>

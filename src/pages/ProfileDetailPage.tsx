@@ -4,6 +4,21 @@ import { Layout } from "@/components/Layout";
 import type { FullUserProfile, ProfileDetailResponse } from "@/types";
 import { loadProfileByUsername } from "@/utils/profileLoader";
 import { useCampaignStore } from "@/store/campaignStore";
+import { 
+  FiArrowLeft, 
+  FiPlus, 
+  FiX, 
+  FiExternalLink, 
+  FiUsers, 
+  FiTrendingUp, 
+  FiLayers, 
+  FiHeart, 
+  FiMessageSquare, 
+  FiEye, 
+  FiActivity, 
+  FiLoader 
+} from "react-icons/fi";
+import { FaInstagram, FaYoutube, FaTiktok } from "react-icons/fa";
 
 function formatFollowersDetail(count: number) {
   if (count >= 1000000) return (count / 1000000).toFixed(2) + "M";
@@ -39,8 +54,9 @@ export function ProfileDetailPage() {
       <Layout>
         <div className="text-center py-12 animate-fade-in">
           <p className="text-red-500 font-semibold mb-4">Invalid profile request</p>
-          <Link to="/" className="text-violet-600 font-bold hover:underline">
-            ← Back to search
+          <Link to="/" className="text-violet-600 font-bold hover:underline inline-flex items-center gap-1">
+            <FiArrowLeft />
+            <span>Back to search</span>
           </Link>
         </div>
       </Layout>
@@ -51,7 +67,7 @@ export function ProfileDetailPage() {
     return (
       <Layout title={`@${username}`}>
         <div className="flex flex-col items-center justify-center py-20 text-gray-400">
-          <span className="animate-spin text-3xl mb-3">⚙️</span>
+          <FiLoader className="animate-spin text-3xl mb-3" />
           <p className="text-sm font-medium">Fetching details from index...</p>
         </div>
       </Layout>
@@ -66,7 +82,8 @@ export function ProfileDetailPage() {
             Could not locate detailed profile indices for {username}.
           </p>
           <Link to="/" className="inline-flex items-center gap-2 px-5 py-2.5 bg-violet-600 text-white rounded-xl font-bold shadow-md shadow-violet-600/10 hover:shadow-lg transition-all">
-            ← Back to search dashboard
+            <FiArrowLeft />
+            <span>Back to search dashboard</span>
           </Link>
         </div>
       </Layout>
@@ -88,28 +105,28 @@ export function ProfileDetailPage() {
     switch (platform) {
       case "instagram":
         return {
-          icon: "📸",
+          icon: <FaInstagram className="text-xs" />,
           label: "Instagram",
           accent: "from-pink-500 via-rose-500 to-yellow-500",
           badgeBg: "bg-pink-50 dark:bg-pink-950/20 text-pink-500"
         };
       case "youtube":
         return {
-          icon: "📺",
+          icon: <FaYoutube className="text-xs" />,
           label: "YouTube",
           accent: "from-red-600 to-red-800",
           badgeBg: "bg-red-50 dark:bg-red-950/20 text-red-600"
         };
       case "tiktok":
         return {
-          icon: "🎵",
+          icon: <FaTiktok className="text-xs" />,
           label: "TikTok",
           accent: "from-zinc-800 to-zinc-950 dark:from-zinc-800 dark:to-zinc-900",
           badgeBg: "bg-zinc-100 dark:bg-zinc-800/40 text-zinc-900 dark:text-zinc-100"
         };
       default:
         return {
-          icon: "⭐",
+          icon: null,
           label: "Social",
           accent: "from-violet-600 to-indigo-600",
           badgeBg: "bg-violet-50 dark:bg-violet-950/20 text-violet-500"
@@ -128,7 +145,8 @@ export function ProfileDetailPage() {
             to="/"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
           >
-            ← Back to discovery
+            <FiArrowLeft />
+            <span>Back to discovery</span>
           </Link>
         </div>
 
@@ -157,7 +175,7 @@ export function ProfileDetailPage() {
                   {user.fullname}
                 </h2>
                 <span className={`flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${meta.badgeBg}`}>
-                  <span>{meta.icon}</span>
+                  {meta.icon}
                   <span>{meta.label}</span>
                 </span>
               </div>
@@ -174,16 +192,17 @@ export function ProfileDetailPage() {
           </div>
 
           {/* Action Row */}
-          <div className="shrink-0 flex flex-col items-center sm:items-end gap-3 mt-4 md:mt-0">
+          <div className="shrink-0 flex flex-col items-center sm:items-end gap-3 mt-4 md:mt-0 w-full sm:w-auto">
             <button
               onClick={handleToggle}
-              className={`w-full sm:w-auto px-5 py-3 text-sm font-bold rounded-xl cursor-pointer shadow-sm active:scale-98 transition-all ${
+              className={`w-full sm:w-auto px-5 py-3 text-sm font-bold rounded-xl cursor-pointer shadow-sm active:scale-98 transition-all flex items-center justify-center gap-2 ${
                 isSelected
                   ? "bg-rose-50 dark:bg-rose-950/20 text-rose-500 dark:text-rose-400 hover:bg-rose-100 border border-rose-200/50"
                   : "bg-linear-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-violet-600/10 hover:shadow-lg hover:shadow-violet-600/20"
               }`}
             >
-              {isSelected ? "✕ Remove from List" : "＋ Add to Campaign"}
+              {isSelected ? <FiX className="text-base" /> : <FiPlus className="text-base" />}
+              <span>{isSelected ? "Remove from List" : "Add to Campaign"}</span>
             </button>
 
             {user.url && (
@@ -194,7 +213,7 @@ export function ProfileDetailPage() {
                 className="text-xs font-bold text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 flex items-center gap-1 py-1"
               >
                 <span>Visit Channel Profile</span>
-                <span>↗</span>
+                <FiExternalLink className="text-xs" />
               </a>
             )}
           </div>
@@ -206,22 +225,28 @@ export function ProfileDetailPage() {
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10">
-          {/* Followers metric card */}
-          <div className="bg-white dark:bg-zinc-900 border border-gray-200/70 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs">
-            <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
-              Follower Reach
-            </span>
+          {/* Followers reach card */}
+          <div className="bg-white dark:bg-zinc-900 border border-gray-200/75 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs relative overflow-hidden">
+            <div className="flex items-center justify-between">
+              <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
+                Follower Reach
+              </span>
+              <FiUsers className="text-gray-400 dark:text-gray-500 text-base" />
+            </div>
             <span className="text-2xl font-extrabold text-gray-900 dark:text-white mt-1 block">
               {formatFollowersDetail(user.followers)}
             </span>
             <span className="text-[10px] text-gray-400 mt-1 block font-medium">Total active subscriptions</span>
           </div>
 
-          {/* Engagement rate metric card */}
-          <div className="bg-white dark:bg-zinc-900 border border-gray-200/70 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs">
-            <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
-              Engagement Rate
-            </span>
+          {/* Engagement rate card */}
+          <div className="bg-white dark:bg-zinc-900 border border-gray-200/75 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs relative overflow-hidden">
+            <div className="flex items-center justify-between">
+              <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
+                Engagement Rate
+              </span>
+              <FiTrendingUp className="text-gray-400 dark:text-gray-500 text-base" />
+            </div>
             <span className="text-2xl font-extrabold text-gray-900 dark:text-white mt-1 block">
               {user.engagement_rate !== undefined
                 ? (user.engagement_rate * 100).toFixed(2) + "%"
@@ -230,12 +255,15 @@ export function ProfileDetailPage() {
             <span className="text-[10px] text-gray-400 mt-1 block font-medium">Audience engagement index</span>
           </div>
 
-          {/* Posts count metric card */}
+          {/* Content posts count card */}
           {user.posts_count !== undefined && (
-            <div className="bg-white dark:bg-zinc-900 border border-gray-200/70 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs">
-              <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
-                Total Content
-              </span>
+            <div className="bg-white dark:bg-zinc-900 border border-gray-200/75 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
+                  Total Content
+                </span>
+                <FiLayers className="text-gray-400 dark:text-gray-500 text-base" />
+              </div>
               <span className="text-2xl font-extrabold text-gray-900 dark:text-white mt-1 block">
                 {user.posts_count}
               </span>
@@ -243,12 +271,15 @@ export function ProfileDetailPage() {
             </div>
           )}
 
-          {/* Average likes metric card */}
+          {/* Average likes card */}
           {user.avg_likes !== undefined && (
-            <div className="bg-white dark:bg-zinc-900 border border-gray-200/70 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs">
-              <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
-                Avg Post Likes
-              </span>
+            <div className="bg-white dark:bg-zinc-900 border border-gray-200/75 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
+                  Avg Post Likes
+                </span>
+                <FiHeart className="text-gray-400 dark:text-gray-500 text-base" />
+              </div>
               <span className="text-2xl font-extrabold text-gray-900 dark:text-white mt-1 block">
                 {formatFollowersDetail(user.avg_likes)}
               </span>
@@ -256,12 +287,15 @@ export function ProfileDetailPage() {
             </div>
           )}
 
-          {/* Average comments metric card */}
+          {/* Average comments card */}
           {user.avg_comments !== undefined && (
-            <div className="bg-white dark:bg-zinc-900 border border-gray-200/70 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs">
-              <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
-                Avg Post Comments
-              </span>
+            <div className="bg-white dark:bg-zinc-900 border border-gray-200/75 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
+                  Avg Post Comments
+                </span>
+                <FiMessageSquare className="text-gray-400 dark:text-gray-500 text-base" />
+              </div>
               <span className="text-2xl font-extrabold text-gray-900 dark:text-white mt-1 block">
                 {formatFollowersDetail(user.avg_comments)}
               </span>
@@ -269,12 +303,15 @@ export function ProfileDetailPage() {
             </div>
           )}
 
-          {/* Average views metric card */}
+          {/* Average views card */}
           {user.avg_views !== undefined && user.avg_views > 0 && (
-            <div className="bg-white dark:bg-zinc-900 border border-gray-200/70 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs">
-              <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
-                Avg Video Views
-              </span>
+            <div className="bg-white dark:bg-zinc-900 border border-gray-200/75 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
+                  Avg Video Views
+                </span>
+                <FiEye className="text-gray-400 dark:text-gray-500 text-base" />
+              </div>
               <span className="text-2xl font-extrabold text-gray-900 dark:text-white mt-1 block">
                 {formatFollowersDetail(user.avg_views)}
               </span>
@@ -282,12 +319,15 @@ export function ProfileDetailPage() {
             </div>
           )}
 
-          {/* Engagements metric card */}
+          {/* Engagements count card */}
           {user.engagements !== undefined && (
-            <div className="bg-white dark:bg-zinc-900 border border-gray-200/70 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs">
-              <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
-                Total Interactions
-              </span>
+            <div className="bg-white dark:bg-zinc-900 border border-gray-200/75 dark:border-zinc-800/80 rounded-2xl p-5 text-left shadow-2xs relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="block text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 tracking-wider">
+                  Total Interactions
+                </span>
+                <FiActivity className="text-gray-400 dark:text-gray-500 text-base" />
+              </div>
               <span className="text-2xl font-extrabold text-gray-900 dark:text-white mt-1 block">
                 {formatFollowersDetail(user.engagements)}
               </span>

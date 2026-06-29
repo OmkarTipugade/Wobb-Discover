@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import type { Platform, UserProfileSummary } from "@/types";
 import { useCampaignStore } from "@/store/campaignStore";
+import { FaInstagram, FaYoutube, FaTiktok } from "react-icons/fa";
+import { FiPlus, FiX } from "react-icons/fi";
 
 interface ProfileCardProps {
   profile: UserProfileSummary;
@@ -42,7 +44,7 @@ export function ProfileCard({
     switch (platform) {
       case "instagram":
         return {
-          icon: "📸",
+          icon: <FaInstagram className="text-xs" />,
           label: "Instagram",
           border: "group-hover:border-pink-500/30",
           text: "text-pink-500",
@@ -50,7 +52,7 @@ export function ProfileCard({
         };
       case "youtube":
         return {
-          icon: "📺",
+          icon: <FaYoutube className="text-xs" />,
           label: "YouTube",
           border: "group-hover:border-red-500/30",
           text: "text-red-600",
@@ -58,7 +60,7 @@ export function ProfileCard({
         };
       case "tiktok":
         return {
-          icon: "🎵",
+          icon: <FaTiktok className="text-xs" />,
           label: "TikTok",
           border: "group-hover:border-zinc-500/30",
           text: "text-zinc-900 dark:text-zinc-100",
@@ -66,7 +68,7 @@ export function ProfileCard({
         };
       default:
         return {
-          icon: "⭐",
+          icon: null,
           label: "Social",
           border: "group-hover:border-violet-500/30",
           text: "text-violet-500",
@@ -86,7 +88,7 @@ export function ProfileCard({
         {/* Card Header (Platform tag + Add button) */}
         <div className="flex items-center justify-between mb-4">
           <span className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${badge.bg} ${badge.text}`}>
-            <span>{badge.icon}</span>
+            {badge.icon}
             <span>{badge.label}</span>
           </span>
 
@@ -99,7 +101,7 @@ export function ProfileCard({
             }`}
             title={isSelected ? "Remove from List" : "Add to List"}
           >
-            {isSelected ? "✕" : "＋"}
+            {isSelected ? <FiX className="text-sm" /> : <FiPlus className="text-sm" />}
           </button>
         </div>
 
