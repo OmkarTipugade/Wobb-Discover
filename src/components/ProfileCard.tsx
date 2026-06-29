@@ -31,7 +31,7 @@ export function ProfileCard({
   return (
     <div
       onClick={handleClick}
-      className="flex items-center gap-3 p-3 border border-gray-300 mb-2 cursor-pointer hover:bg-gray-50 w-[700px]"
+      className="flex items-center gap-3 p-3 border border-gray-300 mb-2 cursor-pointer hover:bg-gray-50 w-175"
       data-search={searchQuery}
     >
       <img src={profile.picture} className="w-12 h-12 rounded-full" />
