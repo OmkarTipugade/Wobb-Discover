@@ -4,14 +4,12 @@ import { ProfileCard } from "./ProfileCard";
 interface ProfileListProps {
   profiles: UserProfileSummary[];
   platform: Platform;
-  searchQuery: string;
   onProfileClick: (username: string) => void;
 }
 
 export function ProfileList({
   profiles,
   platform,
-  searchQuery,
   onProfileClick,
 }: ProfileListProps) {
   return (
@@ -22,7 +20,6 @@ export function ProfileList({
           key={profile.user_id}
           profile={profile}
           platform={platform}
-          searchQuery={searchQuery}
           onProfileClick={onProfileClick}
         />
       ))}

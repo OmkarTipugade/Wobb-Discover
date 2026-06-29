@@ -5,7 +5,6 @@ import { VerifiedBadge } from "./VerifiedBadge";
 interface ProfileCardProps {
   profile: UserProfileSummary;
   platform: Platform;
-  searchQuery: string;
   onProfileClick?: (username: string) => void;
 }
 
@@ -18,7 +17,6 @@ function formatFollowersLocal(count: number) {
 export function ProfileCard({
   profile,
   platform,
-  searchQuery,
   onProfileClick,
 }: ProfileCardProps) {
   const navigate = useNavigate();
@@ -31,10 +29,9 @@ export function ProfileCard({
   return (
     <div
       onClick={handleClick}
-      className="flex items-center gap-3 p-3 border border-gray-300 mb-2 cursor-pointer hover:bg-gray-50 w-175"
-      data-search={searchQuery}
+      className="flex items-center gap-3 p-3 border border-gray-300 mb-2 cursor-pointer hover:bg-gray-50 w-full max-w-2xl"
     >
-      <img src={profile.picture} className="w-12 h-12 rounded-full" />
+      <img src={profile.picture} alt={`${profile.fullname} avatar`} className="w-12 h-12 rounded-full" />
       <div className="text-left flex-1">
         <div className="font-bold">
           @{profile.username}
