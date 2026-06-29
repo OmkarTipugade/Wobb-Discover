@@ -22,10 +22,12 @@ export function SearchPage() {
   };
 
   return (
-    <Layout title="Find Influencers">
-      <p className="text-gray-500 mb-4 text-sm">
-        Browse top creators across social platforms
-      </p>
+    <Layout title="Discover Creators">
+      <div className="max-w-4xl mx-auto text-center mb-8 px-4 animate-fade-in">
+        <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base max-w-lg mx-auto">
+          Explore and filter top influencers across Instagram, YouTube, and TikTok to build your next campaign team.
+        </p>
+      </div>
 
       <PlatformFilter
         selected={platform}
@@ -37,9 +39,14 @@ export function SearchPage() {
         onSearchChange={setSearchQuery}
       />
 
-      <p className="text-xs text-gray-400 mb-2">
-        Showing {filtered.length} of {allProfiles.length} on {platform}
-      </p>
+      <div className="w-full max-w-6xl mx-auto px-4 mb-4 flex items-center justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium animate-fade-in">
+        <span>
+          Showing <span className="text-violet-600 dark:text-violet-400 font-semibold">{filtered.length}</span> of {allProfiles.length} creators
+        </span>
+        <span className="capitalize px-2 py-0.5 bg-gray-100 dark:bg-zinc-800 rounded-md text-xs font-semibold text-gray-600 dark:text-gray-300">
+          {platform} Index
+        </span>
+      </div>
 
       <ProfileList
         profiles={filtered}
