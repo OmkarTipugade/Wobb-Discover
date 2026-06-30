@@ -19,7 +19,11 @@ export function extractProfiles(platform: Platform): UserProfileSummary[] {
     const profile = item.account.user_profile;
     return {
       ...profile,
-      username: profile.username || profile.handle || (profile as any).custom_name || "",
+      username:
+        profile.username ||
+        profile.handle ||
+        (profile as unknown as { custom_name: string }).custom_name ||
+        "",
     };
   });
 }
