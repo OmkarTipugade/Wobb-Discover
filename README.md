@@ -1,5 +1,5 @@
 # Wobb Influencer Discovery Dashboard
-
+Live link: https://wobb-discover.vercel.app/
 Wobb Influencer Discovery Dashboard is a high-performance, modern client-side web application designed for marketing and outreach teams. It enables users to explore, search, filter, and shortlist top influencers across three major social media platforms: **Instagram**, **YouTube**, and **TikTok**. 
 
 This application offers an intuitive interface to build outreach campaign teams, analyze detailed creator metrics, and export shortlists for downstream outreach workflows.
