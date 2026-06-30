@@ -1,80 +1,82 @@
-# Wobb Frontend Assignment
+# Wobb Influencer Discovery Dashboard
 
-A starter influencer search application built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS**. This project is intentionally left in a rough-but-working state for candidates to improve.
+Wobb Influencer Discovery Dashboard is a high-performance, modern client-side web application designed for marketing and outreach teams. It enables users to explore, search, filter, and shortlist top influencers across three major social media platforms: **Instagram**, **YouTube**, and **TikTok**. 
+
+This application offers an intuitive interface to build outreach campaign teams, analyze detailed creator metrics, and export shortlists for downstream outreach workflows.
+
+---
+
+## Core Features
+
+### 1. Unified Search & Platform Filtering
+- **Multi-Platform Navigation**: Seamlessly toggle index views between Instagram, YouTube, and TikTok with visual branding badges and custom gradient accents.
+- **Accurate Search Indexing**: Filter creators in real-time by their handle, username, or full name. The search engine is fully case-insensitive and robust against missing metadata.
+
+### 2. Influencer Detail Analytics
+- **Dynamic Profile Loading**: Clicking a creator card dynamically loads in-depth audience metrics from localized JSON files on demand, optimizing initial network loads.
+- **Key Metrics Displayed**: Check verification status, follower count, engagement rates, average views, posts count, average comments, and demographic constraints.
+
+### 3. Persistent Campaign Shortlist (Cart System)
+- **Zustand-powered Global State**: Shortlist creators into a global campaign list that persists across page refreshes using browser `localStorage` syncing.
+- **Outreach Shortlist Panel**: A slide-out side drawer with a backdrop blur overlay to review current team members, view total counts, and easily delete entries or clear the shortlist.
+
+### 4. CSV Shortlist Export
+- **One-click Spreadsheet Download**: Compile the campaign team's details (User ID, Username, Full Name, Followers count) directly into a standardized CSV file for upload into CRM or outreach platforms.
+
+### 5. Premium UI/UX & Dark Mode
+- **System-preferred Dark Mode**: Responsive light and dark modes customized with Outfit and Plus Jakarta Sans typography.
+- **Responsive Layout**: Designed with fluid Tailwind CSS v4 grids and flex layouts, optimized for mobile screens, tablets, and high-resolution desktop monitors.
+- **Micro-animations**: Enhanced with smooth hover elevations, slide transitions, page entry fades, and loading spinners.
+
+---
+
+### Data Pipeline
+1. **Initial Load**: Platform index files (`search/*.json`) are loaded synchronously inside `dataHelpers.ts` to power instant dashboard search.
+2. **On-Demand Resolution**: Granular user profiles (`profiles/*.json`) are code-split and loaded asynchronously inside `profileLoader.ts` using Vite's `import.meta.glob` path resolver when navigating to `/profile/:username`.
+
+---
+
+## Technical Stack
+
+- **React 19**: Modern component-based view engine.
+- **TypeScript**: Complete compile-time type-safety.
+- **Vite 8**: Ultra-fast build toolchain and bundling.
+- **Tailwind CSS v4 & Vanilla CSS Variables**: Fluid modern styles, custom scrollbars, transitions, and theme variables.
+- **Zustand 5**: Minimal, reactive, and persistent state management store.
+- **React Router v7**: Client-side routing.
+- **React Icons**: Premium SVG iconography.
+
+---
 
 ## Getting Started
 
+### 1. Installation
+Install the project dependencies:
 ```bash
 npm install
-npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) to view the app.
+### 2. Local Development
+Start the local Vite development server:
+```bash
+npm run dev
+```
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-## What's Included
+### 3. Production Build
+Compile and type-check the application for distribution:
+```bash
+npm run build
+```
 
-- **Search / Dashboard** — filter influencers by platform (Instagram, YouTube, TikTok) and search by username or full name
-- **Profile Details** — click a profile to view extended data loaded from individual JSON files
-- **Routing** — `react-router-dom` with `/` (search) and `/profile/:username` (details)
+### 4. Linting
+Verify stylistic and programming constraints:
+```bash
+npm run lint
+```
 
-Sample data lives in:
-
-- `src/assets/data/search/` — platform search results (10 profiles each)
-- `src/assets/data/profiles/` — detailed profile JSON per username
-
-## How to Submit
-
-1. **Download or clone** this starter project to your machine.
-2. **Create a new repository** on your own GitHub account. Do not fork the original assignment repo — push your work to a repo you own.
-3. Complete the tasks below and push your changes to that repository.
-4. **Share the public GitHub repository URL** with us as your submission.
-
-### Deadline (strict)
-
-- **Due:** **2 July 2026, 2:00 PM IST** (Indian Standard Time, UTC+5:30)
-- **Any git commits made after this deadline will disqualify your submission.** We will only consider the repository state as of the deadline; late commits will not be reviewed.
-- Make sure your final work is pushed **before** the cutoff.
-
-## AI Usage
-
-You may use any AI tools (Cursor, ChatGPT, Claude, GitHub Copilot, etc.). We are evaluating your final solution and engineering decisions.
-
-## Your Tasks
-
-Complete the following as part of your submission:
-
-1. **Find and fix all bugs and quality issues** — the codebase contains intentional bugs and quality issues. Identify and resolve them.
-
-2. **Completely redesign the UI/UX** — replace the basic layout with a polished, modern interface. Focus on usability, visual hierarchy, and delight.
-
-3. **Replace React Context with Zustand** — when you implement state management for the selected list, use [Zustand](https://github.com/pmndrs/zustand) instead of React Context.
-
-4. **Implement "Select profile & Add to List"** — the disabled "Add to List" button is a stub. Build the full feature:
-   - Select / add profiles to a persistent list
-   - View and manage the selected list
-   - Handle duplicates appropriately
-
-5. **Improve code quality and project structure** — refactor as needed, add proper types, and follow React best practices.
-
-6. **Optimize performance** — apply sensible optimizations where appropriate.
-
-7. **Use any libraries you need** — you are not limited to the current stack. Choose tools that help you deliver a great result (UI kits, state managers, testing libraries, etc.).
-
-## Scripts
-
-| Command        | Description              |
-| -------------- | ------------------------ |
-| `npm run dev`  | Start development server |
-| `npm run build`| Production build         |
-| `npm run lint` | Run ESLint               |
-
-## Submission Notes
-
-- Document any assumptions or trade-offs in your README
-- Ensure `npm run build` passes before submitting
-- Focus on demonstrating your judgment — not every possible feature needs to be built, but the core assignment items should be addressed thoughtfully
-- Double-check that your repo is public (or that we have access) and that the link is included in your submission
-- Please make meaningful commits throughout your work. We may review your commit history.
-- **Bonus:** Deploying the app (e.g. Vercel, Netlify, GitHub Pages) is optional but will be considered a plus — include the live URL in your submission if you do
-
-Good luck!
+### 5. Running Tests
+Execute the unit test suite using Vitest:
+```bash
+npm run test
+```
